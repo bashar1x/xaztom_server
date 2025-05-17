@@ -1,0 +1,33 @@
+{
+  "role": "model",
+  "parts": [
+    {
+      "text": "أقوم بإنشاء صورتين لك. الأولى ستعرض كلبًا ودودًا يجلس في حديقة مشمسة، والثانية ستعرض قطة منزلية ناعمة تستلقي على وسادة مريحة داخل غرفة دافئة.\n"
+    },
+    {
+      "fileData": {
+        "fileUri": "https://generativelanguage.googleapis.com/v1beta/files/mory5emfcpg6",
+        "mimeType": "image/png",
+        "more": {
+          "name": "file-ai-1747496382205.png",
+          "type": "image",
+          "url": "http://10.50.3.231:3000/api/app/images/6828adbe85519be124c05921"
+        }
+      }
+    },
+    {
+      "text": "\nأقوم الآن بإنشاء الصورة الثانية التي ستعرض قطة منزلية ناعمة تستلقي على وسادة مريحة داخل غرفة دافئة.\n"
+    },
+    {
+      "fileData": {
+        "fileUri": "https://generativelanguage.googleapis.com/v1beta/files/turnzwmu3t5v",
+        "mimeType": "image/png",
+        "more": {
+          "name": "file-ai-1747496389909.png",
+          "type": "image",
+          "url": "http://10.50.3.231:3000/api/app/images/6828adc585519be124c05923"
+        }
+      }
+    }
+  ]
+}
