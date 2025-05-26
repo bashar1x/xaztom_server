@@ -12,7 +12,7 @@ const chating = Router();
 chating.post('/chating', async (req, res) => {
     console.log('/chating', req.body);
     try {
-        const { content, userId, historyId } = req.body;
+        const { content, tools, userId, historyId } = req.body;
 
         if (!content || !userId) {
             return res.status(400).json({ message: 'Missing required fields.', type: 'MRF' });
@@ -30,20 +30,20 @@ chating.post('/chating', async (req, res) => {
             return res.status(500).json({ message: 'Error filtering content.', type: 'EFC' });
         }
 
-        const result = await GenAi(filteredContent);
+        const result = await GenAi(filteredContent, tools);
 
         if (!result) {
             return res.status(500).json({ message: 'Error generating content.', type: 'EGC' });
         };
         console.log('result:', result);
-        
-        const processedParts = await processParts(result.parts);
+
+        const processedParts = await processParts(result.content.parts, result.serching);
 
         if (!processedParts) {
             return res.status(500).json({ message: 'Error processed content.', type: 'EPC' });
         }
-
-        ss(processedParts);
+        console.log('processedParts:', processedParts);
+        // ss(processedParts);
 
         setGetHistory(processedParts, userId, historyId || resultHistory._id);
 

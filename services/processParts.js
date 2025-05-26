@@ -1,7 +1,7 @@
 import uploadFile from '../services/ai/uploadFile.js';
 import fileToUrl from '../services/fileToUrl.js';
 
-export default async function processParts(parts) {
+export default async function processParts(parts, serching) {
     const updatedParts = [];
 
     for (const part of parts) {
@@ -39,6 +39,7 @@ export default async function processParts(parts) {
 
     return {
       role: 'model',
-      parts: updatedParts
+      parts: updatedParts,
+      serching
     }
 }

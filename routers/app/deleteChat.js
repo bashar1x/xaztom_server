@@ -1,31 +1,31 @@
 import express, { Router } from "express";
 import dotenv from 'dotenv';
-import Invoice from "../../models/Invoicee.js";
+import History from "../../models/History.js";
 dotenv.config();
 
-const app_deleteInvoice = Router();
 
-app_deleteInvoice.delete('/app_delete-invoice/:userId/:idInvoice', async (req, res) => {
+const deleteChat = Router();
+
+deleteChat.delete('/delete-chat/:historyId', async (req, res) => {
+    console.log('/delete-chat/:historyId', req.params);
     try {
-        const { userId, idInvoice } = req.params;
-        console.log(userId, idInvoice);
+        const { historyId } = req.params;
+        if (!historyId) {
+            return res.status(400).json({ message: 'All fields are required.', type: 'AFR' });
+        };
 
-        if (!userId || !idInvoice) {
-            return res.status(404).json({ message: "Id is required", type: 'IIR' });
-        }
+        const history = await History.findByIdAndDelete(historyId);
 
-        const invoice = await Invoice.findOneAndDelete({ _id: idInvoice, userId });
-        
-        if (!invoice) {
-            return res.status(404).json({ message: "User not found", type: 'UNF' });
-        }
+        if (!history) {
+            return res.status(404).json({ message: "history not found", type: 'HNF' });
+        };
 
-        return res.status(200).json({ message: 'Deleted successfully', type: 'DS' });
+        res.status(200).json({ message: "dlelte successfully", type: 'DS' });
 
     } catch (error) {
         res.status(500).json({ message: 'Internal server error.', type: 'ISE' });
-        console.error(error);
+        console.log(error)
     }
 });
 
-export default app_deleteInvoice;
+export default deleteChat;

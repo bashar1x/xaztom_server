@@ -1,27 +1,27 @@
 import express, { Router } from "express";
 import dotenv from 'dotenv';
-import Menu from "../../models/Menu.js";
+import History from "../../models/History.js";
 dotenv.config();
 
 
-const app_getMenus = Router();
+const getChats = Router();
 
-app_getMenus.get('/app_get-menus/:shopId', async (req, res) => {
-    console.log(req.params);
+getChats.get('/get-chats/:userId', async (req, res) => {
+    console.log('/get-chats/:userId', req.params);
     try {
-        const { shopId } = req.params;
-
-        if (!shopId) {
+        const { userId } = req.params;
+        
+        if (!userId) {
             return res.status(400).json({ message: 'All fields are required.', type: 'AFR' });
         };
-        
-        const menu = await Menu.find({ shopId }).sort({ createdAt: -1 }); 
 
-        if (!menu) {
-           return res.status(404).json({ message: "menu not found", type: 'MNF' });
+        const history = await History.find({ userId }).sort({ createdAt: -1 });
+
+        if (!history) {
+            return res.status(404).json({ message: "history not found", type: 'HNF' });
         };
 
-        res.status(200).json({ message: "find successfully", type: 'FS', menu });
+        res.status(200).json({ message: "find successfully", type: 'FS', history });
 
     } catch (error) {
         res.status(500).json({ message: 'Internal server error.', type: 'ISE' });
@@ -29,4 +29,4 @@ app_getMenus.get('/app_get-menus/:shopId', async (req, res) => {
     }
 });
 
-export default app_getMenus;
+export default getChats;
