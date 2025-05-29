@@ -4,6 +4,7 @@ import GenAi from '../../services/ai/gen.ai.js';
 import setGetHistory from '../../services/ai/setGetHistory.js';
 import filterHistory from '../../services/filterHistory.js';
 import processParts from '../../services/processParts.js';
+import genTitle from '../../services/ai/genTitle.js';
 import fs from 'fs'
 dotenv.config();
 
@@ -11,10 +12,11 @@ const chating = Router();
 
 chating.post('/chating', async (req, res) => {
     console.log('/chating', req.body);
+    let chatInfo;
     try {
         const { content, tools, userId, historyId } = req.body;
 
-        if (!content || !userId) {
+        if (!userId) {
             return res.status(400).json({ message: 'Missing required fields.', type: 'MRF' });
         };
 
@@ -24,12 +26,14 @@ chating.post('/chating', async (req, res) => {
             return res.status(500).json({ message: 'Error retrieving history.', type: 'ERH' });
         };
 
+        chatInfo = {historyId: resultHistory._id}
+
         const filteredContent = filterHistory(resultHistory.messages);
 
         if (!filteredContent) {
             return res.status(500).json({ message: 'Error filtering content.', type: 'EFC' });
         }
-
+        // ss(filteredContent);
         const result = await GenAi(filteredContent, tools);
 
         if (!result) {
@@ -47,18 +51,21 @@ chating.post('/chating', async (req, res) => {
 
         setGetHistory(processedParts, userId, historyId || resultHistory._id);
 
+        if (resultHistory.title == 'new chat') genTitle(resultHistory._id);
+
         res.json({
             message: 'generative successful',
             type: 'GS',
             content: processedParts,
-            chatInfo: {
-                historyId: resultHistory._id,
-                title: resultHistory.title
-            }
-        })
+            chatInfo
+        });
+
     } catch (error) {
         console.error('Error:', error);
-        res.status(500).json({ message: 'Internal server error.', type: 'ISE' });
+        res.status(500).json({
+            message: 'Internal server error.', type: 'ISE',
+            chatInfo
+        });
     }
 });
 

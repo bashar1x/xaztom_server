@@ -7,12 +7,12 @@ const ai = new GoogleGenAI({ apiKey: process.env.API_KEY_AI });
 
 export default async function GenAi(content, tool) {
   console.log(content, '\n\n', tool);
-
+// return false
   try {
     const result = await ai.models.generateContent({
       model: tool.generate
         ? 'gemini-2.0-flash-preview-image-generation'
-        : 'gemini-2.5-flash-preview-04-17',
+        : 'gemini-2.5-flash-preview-05-20',
 
       contents: content,
 
@@ -24,16 +24,16 @@ export default async function GenAi(content, tool) {
           },
         }),
         tools: [
-          { urlContext: {} },
           ...(tool.search ? [{ googleSearch: {} }] : []),
+          ...(tool.generate ? [] : [ { urlContext: {} }]),
         ],
-        topP: 1,
-       
-        maxOutputTokens: 65535,
+        // topP: 1,
+        // temperature: 1.5,
+        maxOutputTokens: 8192,
         responseMimeType: 'text/plain',
       },
     });
-    ss(result)
+    // ss(result)
     return {
       content: result?.candidates?.[0]?.content,
       serching: result?.candidates?.[0]?.groundingMetadata?.groundingChunks

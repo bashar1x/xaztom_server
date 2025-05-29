@@ -9,7 +9,7 @@ export default async function fileToUrl(name, mimeType, buffer) {
       data: buffer,
     });
 
-    return `http://10.50.3.231:3000/api/app/images/${image._id}`
+    return `http://10.50.4.147:3000/api/app/images/${image._id}`
   } catch (error) {
     console.error("Error uploading media:", error);
     throw error;

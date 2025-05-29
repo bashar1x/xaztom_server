@@ -12,7 +12,7 @@ const MessageSchema = new Schema({
 
 const historySchema = new Schema({
   userId: { type: mongoose.Types.ObjectId, ref: 'User', required: true },
-  title: { type: String, default: 'New Conversation' },
+  title: { type: String, default: 'new chat' },
   messages: [MessageSchema],
 }, {
   timestamps: true
