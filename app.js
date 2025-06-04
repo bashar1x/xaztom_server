@@ -32,12 +32,12 @@ app.use('/api/logs', verifyApp, verify);
 app.use('/api/logs', verifyApp, reCode);
 app.use('/api/logs', verifyApp, rePassword);
 
+app.use('/api/app', images);
 app.use('/api/app',verifyApp, chating);
 app.use('/api/app',verifyApp, uploadMidea);
-app.use('/api/app', images);
 app.use('/api/app',verifyApp, getChats);
 app.use('/api/app',verifyApp, editChatTitle);
 app.use('/api/app',verifyApp, deleteChat);
 
 app.use('/bages', paths);
-app.listen(process.env.PORT, () => console.log('Server is running on http://localhost:3000'));
+app.listen(process.env.PORT || 3000, () => console.log('Server is running on http://localhost:3000'));
