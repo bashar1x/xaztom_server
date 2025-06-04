@@ -26,14 +26,14 @@ chating.post('/chating', async (req, res) => {
             return res.status(500).json({ message: 'Error retrieving history.', type: 'ERH' });
         };
 
-        chatInfo = {historyId: resultHistory._id}
+        chatInfo = { historyId: resultHistory._id }
 
         const filteredContent = filterHistory(resultHistory.messages);
 
         if (!filteredContent) {
             return res.status(500).json({ message: 'Error filtering content.', type: 'EFC' });
         }
-       
+
         const result = await GenAi(filteredContent, tools, userInfo);
 
         if (!result) {
@@ -47,17 +47,15 @@ chating.post('/chating', async (req, res) => {
             return res.status(500).json({ message: 'Error processed content.', type: 'EPC' });
         }
         // console.log('processedParts:', processedParts);
-    
-        setGetHistory(processedParts, userId, historyId || resultHistory._id);
-
-        if (resultHistory.title == 'new chat') genTitle(resultHistory._id);
-
         res.json({
             message: 'generative successful',
             type: 'GS',
             content: processedParts,
             chatInfo
         });
+        setGetHistory(processedParts, userId, historyId || resultHistory._id);
+
+        if (resultHistory.title == 'new chat') genTitle(resultHistory._id);
 
     } catch (error) {
         console.error('Error:', error);

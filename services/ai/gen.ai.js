@@ -33,7 +33,6 @@ export default async function GenAi(content, tool, userInfo) {
           systemInstruction: [
             'your name is "zin"',
             `my name is "${userInfo.name}"`,
-            `date now is ${userInfo.date}`,
             'you programmer and creator is "bashar"',
           ]
         }),

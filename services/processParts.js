@@ -9,7 +9,7 @@ export default async function processParts(parts, serching) {
 
         try {
             const { data, mimeType } = part.inlineData;
-            const originalname = `file-ai-${Date.now()}.png`;
+            const originalname = `file-zin-ai-${Date.now()}.png`;
             const mimetype = mimeType;
             const buffer = Buffer.from(data, 'base64');
 
