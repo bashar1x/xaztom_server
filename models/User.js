@@ -4,10 +4,6 @@ const userSchema = new Schema({
     name: { type: String, required: true },
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
-    location: {
-        latitude: { type: Number },
-        longitude: { type: Number }
-    },
     isVerify: { type: Boolean, default: false },
     isBanned: { type: Boolean, default: false },
     codeVerify: { type: Number },

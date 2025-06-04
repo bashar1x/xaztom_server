@@ -26,7 +26,7 @@ editChatTitle.put('/edit-chat-title/:historyId', async (req, res) => {
 
     } catch (error) {
         res.status(500).json({ message: 'Internal server error.', type: 'ISE' });
-        console.log(error)
+        console.error(error)
     }
 });
 

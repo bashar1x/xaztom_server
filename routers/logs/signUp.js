@@ -38,7 +38,7 @@ signUp.post('/sign-up', async (req, res) => {
 
     await newUser.save();
 
-    // SenderVerifyCode(email, generateCode);
+    SenderVerifyCode(email, generateCode);
 
     res.status(200).json({
       message: 'User registered successfully.',

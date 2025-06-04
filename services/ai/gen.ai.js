@@ -1,13 +1,10 @@
 import { GoogleGenAI } from "@google/genai";
 import dotenv from "dotenv";
 dotenv.config();
-import fs from 'fs'
-
 const ai = new GoogleGenAI({ apiKey: process.env.API_KEY_AI });
 
-export default async function GenAi(content, tool) {
-  console.log(content, '\n\n', tool);
-// return false
+export default async function GenAi(content, tool, userInfo) {
+
   try {
     const result = await ai.models.generateContent({
       model: tool.generate
@@ -22,15 +19,25 @@ export default async function GenAi(content, tool) {
           thinkingConfig: {
             includeThoughts: true,
           },
+
         }),
         tools: [
           ...(tool.search ? [{ googleSearch: {} }] : []),
-          ...(tool.generate ? [] : [ { urlContext: {} }]),
+          ...(tool.generate ? [] : [{ urlContext: {} }]),
         ],
-        // topP: 1,
-        // temperature: 1.5,
-        maxOutputTokens: 8192,
+        topP: 1,
+        temperature: 1.5,
+        maxOutputTokens: tool.generate ? 8192 : 40000,
         responseMimeType: 'text/plain',
+        ...(!tool.generate && {
+          systemInstruction: [
+            'your name is "zin"',
+            `my name is "${userInfo.name}"`,
+            `date now is ${userInfo.date}`,
+            'you programmer and creator is "bashar"',
+          ]
+        }),
+
       },
     });
     // ss(result)
@@ -43,14 +50,4 @@ export default async function GenAi(content, tool) {
     console.error("Error in GenAi:", error);
     throw error;
   }
-}
-
-
-function ss(dataToSave) {
-  fs.writeFile('./result.json', JSON.stringify(dataToSave, null, 2), (err) => {
-    if (err) {
-      return console.error('Error writing to file:', err);
-    }
-    console.log('Content saved to result.json');
-  });
 }

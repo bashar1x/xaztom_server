@@ -13,7 +13,7 @@ images.get('/images/:id', async (req, res) => {
         res.set('Content-Type', img.mimeType);
         res.send(img.data);
     } catch (error) {
-        console.log('Image not found');
+        console.error('Image not found', error);
         res.status(404).send('Image not found');
     }
 });

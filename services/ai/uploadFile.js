@@ -5,7 +5,7 @@ dotenv.config();
 const ai = new GoogleGenAI({ apiKey: process.env.API_KEY_AI });
 
 export default async function uploadFile(base64Image, mimeType) {
-    console.log('uploadFile started');
+    // console.log('uploadFile started');
     try {
         const buffer = Buffer.from(base64Image, 'base64');
         const blob = new Blob([buffer], { type: mimeType })

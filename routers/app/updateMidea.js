@@ -22,8 +22,8 @@ uploadMidea.post('/upload-midea', upload.single('midea'), async (req, res) => {
             ]);
         } else result1 = await uploadFile(buffer.toString('base64'), mimetype);
 
-        console.log('result1', result1);
-        console.log('result2', result2);
+        // console.log('result1', result1);
+        // console.log('result2', result2);
 
         res.json({
             message: 'upload file successfully',

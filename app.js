@@ -4,6 +4,8 @@ import dotenv from 'dotenv';
 import connectDB from "./connect.db.js";
 import verifyApp from "./middlewares/verifyApp.js";
 
+import paths from './routers/paths/paths.js';
+
 import signIn from './routers/logs/signIn.js';
 import signUp from './routers/logs/signUp.js';
 import verify from './routers/logs/verify.js';
@@ -30,14 +32,12 @@ app.use('/api/logs', verifyApp, verify);
 app.use('/api/logs', verifyApp, reCode);
 app.use('/api/logs', verifyApp, rePassword);
 
-app.use('/api/app', chating);
-app.use('/api/app', uploadMidea);
+app.use('/api/app',verifyApp, chating);
+app.use('/api/app',verifyApp, uploadMidea);
 app.use('/api/app', images);
-app.use('/api/app', getChats);
-app.use('/api/app', editChatTitle);
-app.use('/api/app', deleteChat);
-app.listen(process.env.PORT, () => console.log('Server is running on http://localhost:3000'));
+app.use('/api/app',verifyApp, getChats);
+app.use('/api/app',verifyApp, editChatTitle);
+app.use('/api/app',verifyApp, deleteChat);
 
-// Test GenAi
-// import GenAi from "./services/ai/gen.ai.js";
-//  GenAi()
+app.use('/bages', paths);
+app.listen(process.env.PORT, () => console.log('Server is running on http://localhost:3000'));

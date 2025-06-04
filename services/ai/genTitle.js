@@ -19,7 +19,7 @@ export default async function genTitle(historyId) {
         });
     
         const output = response.text
-        console.log('Generated Title:', output);
+        // console.log('Generated Title:', output);
         history.title = output;
         history.save()
     } catch (error) {
