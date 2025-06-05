@@ -21,8 +21,12 @@ import editChatTitle from "./routers/app/editChatTitle.js"
 import deleteChat from "./routers/app/deleteChat.js";
 const app = express();
 // Middlewares
-app.use(json()); app.use(urlencoded()); app.use(static_('views'));
+// app.use(json()); app.use(urlencoded()); 
+app.use(static_('views'));
 app.use(cors());
+app.use(json({ limit: '10mb' }));
+app.use(urlencoded({ limit: '10mb', extended: true }));
+
 dotenv.config();
 connectDB();
 

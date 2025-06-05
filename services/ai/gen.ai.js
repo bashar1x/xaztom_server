@@ -4,7 +4,8 @@ dotenv.config();
 const ai = new GoogleGenAI({ apiKey: process.env.API_KEY_AI });
 
 export default async function GenAi(content, tool, userInfo) {
-
+  console.log('start GenAi', userInfo);
+  
   try {
     const result = await ai.models.generateContent({
       model: tool.generate
@@ -39,7 +40,7 @@ export default async function GenAi(content, tool, userInfo) {
 
       },
     });
-    // ss(result)
+    console.log('finsh GenAi', userInfo);
     return {
       content: result?.candidates?.[0]?.content,
       serching: result?.candidates?.[0]?.groundingMetadata?.groundingChunks
