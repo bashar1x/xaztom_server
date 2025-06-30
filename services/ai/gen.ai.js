@@ -28,7 +28,7 @@ export default async function GenAi(content, tool, userInfo) {
         ],
         topP: 1,
         temperature: 1.5,
-        maxOutputTokens: tool.generate ? 8192 : 40000,
+        maxOutputTokens: 8192,
         responseMimeType: 'text/plain',
         ...(!tool.generate && {
           systemInstruction: [
