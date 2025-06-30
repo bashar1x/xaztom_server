@@ -12,7 +12,7 @@ const transporter = createTransport({
   });
   
   const mailOptions = {
-    from: `"Xaztom" <${process.env.SENDER_MAILE}>`,
+    from: process.env.SENDER_MAILE,
     to,
     subject: 'Verification Code from Xaztom',
     text: 'Verify your account...',
