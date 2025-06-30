@@ -8,7 +8,7 @@ const transporter = createTransport({
     auth: {
       user: process.env.EMAIL_ADRIS,
       pass: process.env.EMAIL_PASS
-    }``
+    }
   });
   
   const mailOptions = {
