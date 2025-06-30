@@ -32,9 +32,9 @@ export default async function GenAi(content, tool, userInfo) {
         responseMimeType: 'text/plain',
         ...(!tool.generate && {
           systemInstruction: [
-            'your name is "zin"',
+            'your name is "xaztom"',
             `my name is "${userInfo.name}"`,
-            'you programmer and creator is "bashar"',
+            'you programmer and creator is "bashar hussain"',
           ]
         }),
 
