@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Top Admins: tlbatk</title>
+    <script async>
+        const getKey = localStorage.getItem('key');
+        if (getKey) window.location = 'users-a'
+    </script>
+    <style>
+        body {
+            font-family: Arial;
+            height: 100vh;
+            width: 100%;
+            background: #eee;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #1d3557;
+        }
+
+        input[type="text"],
+        input[type="submit"] {
+            width: 100%;
+            padding: 20px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+            outline-color: #1d3557;
+        }
+
+        .container label {
+            font-size: 15px;
+            color: #333;
+        }
+
+        input[type="submit"] {
+            background: linear-gradient(135deg, #1d3557, #457b9d);
+            color: #fff;
+        }
+
+        #msg {
+            text-align: center;
+            color: crimson;
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h2>Login Administrator</h2><br>
+        <p id="msg"></p>
+        <form id="form">
+            <label for="key">key:</label>
+            <input required type="text" id="key" name="key" placeholder="Enter your key">
+            <input type="submit" value="Login">
+        </form>
+    </div>
+</body>
+<script>
+
+    const
+        key = document.getElementById('key'),
+        message = document.getElementById('msg')
+
+    document.getElementById('form').onsubmit = async (e) => {
+        e.preventDefault();
+        try {
+            const res = await fetch('/api/admin/log-admin', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    key: key.value
+                })
+            })
+            const data = await res.json();
+            console.log(data);
+            message.innerText = data.message;
+
+            if (data.type === 'LS') {
+                localStorage.setItem('key', key.value)
+                window.location = 'users-a'
+            };
+
+        } catch (err) {
+            console.log(err)
+        }
+    };
+
+</script>
+
+</html>

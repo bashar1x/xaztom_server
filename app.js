@@ -12,7 +12,6 @@ import verify from './routers/logs/verify.js';
 import reCode from './routers/logs/reCode.js';
 import rePassword from "./routers/logs/rePassword.js";
 
-
 import chating from "./routers/app/chating.js";
 import uploadMidea from "./routers/app/updateMidea.js";
 import images from "./routers/app/Images.js";
