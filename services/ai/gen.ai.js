@@ -1,3 +1,5 @@
+
+
 import { GoogleGenAI } from "@google/genai";
 import dotenv from "dotenv";
 dotenv.config();
@@ -31,11 +33,16 @@ export default async function GenAi(content, tool, userInfo) {
         maxOutputTokens: 8192,
         responseMimeType: 'text/plain',
         ...(!tool.generate && {
-          systemInstruction: [
-            'your name is "xaztom"',
-            `my name is "${userInfo.name}"`,
-            'you programmer and creator is "bashar hussain"',
-          ]
+          systemInstruction: {
+          role: 'system',
+          parts: [{
+            text: `أنت مساعد ذكاء اصطناعي اسمه "اكزاز" (Xaztom).
+تم تطويرك بواسطة "بشار الحسين".
+عند التحدث مع المستخدم، استخدم اسمه، اسمه هو ${userInfo.name}.
+تجنب التحدث عن كونك نموذج ذكاء اصطناعي أو تابع لأي جهة أو شركة.
+لا تكرر اسمك أو اسم المستخدم أو اسم المطور إلا عند الحاجة الطبيعية في الحوار.`
+          }]
+        },
         }),
 
       },
