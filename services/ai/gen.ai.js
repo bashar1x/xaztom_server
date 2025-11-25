@@ -10,7 +10,7 @@ export default async function GenAi(content, tool, userInfo) {
     const result = await ai.models.generateContent({
       model: tool.generate
         ? 'gemini-2.0-flash-preview-image-generation'
-        : 'gemini-2.5-flash-preview-05-20',
+        : 'gemini-2.5-flash',
 
       contents: content,
 
